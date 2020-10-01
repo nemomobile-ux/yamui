@@ -3,8 +3,8 @@ MINUI_C_FILES := minui/graphics.c minui/graphics_fbdev.c minui/events.c minui/re
 C_FILES := main.c os-update.c $(MINUI_C_FILES)
 OBJS := $(patsubst %.c, %.o, $(C_FILES))
 CC = cc
-CFLAGS = -Wall -DOVERSCAN_PERCENT=0 -I/usr/include/ -O2 -W -ansi `pkg-config --cflags libdrm`
-LDFLAGS = -lpng -lc -lz -lm `pkg-config --libs libdrm`
+CFLAGS = -g -Wall -DOVERSCAN_PERCENT=0 -I/usr/include/ -O2 -W -ansi `pkg-config --cflags libdrm`
+LDFLAGS = -g -lpng -lc -lz -lm `pkg-config --libs libdrm`
 
 OBJS_COMMON := yamui-tools.o
 
@@ -30,7 +30,6 @@ $(POWERKEY): $(OBJS_POWERKEY) $(OBJS_COMMON)
 	$(CC) $(CFLAGS_POWERKEY) $(OBJS_POWERKEY) $(OBJS_COMMON) -o $(POWERKEY)
 
 install: all
-	strip $(PROGRAM) $(SCREENSAVERD)
 	install -m 755 -D $(PROGRAM) $(DESTDIR)/usr/bin/$(PROGRAM)
 	install -m 755 -D $(SCREENSAVERD) $(DESTDIR)/usr/bin/$(SCREENSAVERD)
 	install -m 755 -D $(POWERKEY) $(DESTDIR)/usr/bin/$(POWERKEY)
